@@ -24,6 +24,8 @@ public abstract class BaseScene: MonoBehaviour
       inputController.MouseRightClickAction += OnMouseRightClick;
       inputController.MouseMoveAction += OnMouseMove;
       
+      this.gameObject.SetActive(true);
+      
       Debug.Log("Loaded Scene with name: " + gameObject.name);
    }
    
@@ -34,6 +36,8 @@ public abstract class BaseScene: MonoBehaviour
       inputController.MouseRightClickAction -= OnMouseRightClick;
       inputController.MouseMoveAction -= OnMouseMove;
       
+      this.gameObject.SetActive(false);
+
       Debug.Log("Unloaded Scene with name: " + gameObject.name);
    }
    
@@ -57,7 +61,7 @@ public abstract class BaseScene: MonoBehaviour
       
    }
    
-   protected virtual void Win()
+   public virtual void Win()
    {
       SceneWon?.Invoke();
    }
