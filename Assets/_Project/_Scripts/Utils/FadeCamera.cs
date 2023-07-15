@@ -12,11 +12,11 @@ public class FadeCamera : MonoBehaviour
     
     public void FadeIn(float duration)
     {
-        cameraCanvasGroup.DOFade(1f, duration).From(0f);
+        cameraCanvasGroup.DOFade(1f, duration);
     }
     
     public void FadeOut(float duration)
     {
-        cameraCanvasGroup.DOFade(0f, duration).From(1f);
+        cameraCanvasGroup.DOFade(0f, duration);
     }
 }

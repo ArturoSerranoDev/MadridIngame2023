@@ -59,11 +59,12 @@ public class MainController : MonoBehaviour
     
     private IEnumerator TransitionInMinigameCoroutine()
     {
+        fullCanvas.SetActive(true);
         mainCamera.GetComponent<FadeCamera>().FadeOut(2f);
         yield return new WaitForSeconds(2f);
 
         // Puerta abre (in black)
-        puertaAlcalaDoor.transform.DOLocalMoveY(2, 1f).From(0);     
+        puertaAlcalaDoor.transform.DOLocalMoveY(2, 1f);     
         yield return new WaitForSeconds(1f);
 
         // Fade in Controllers si no se han explicado
@@ -102,6 +103,14 @@ public class MainController : MonoBehaviour
 
     public IEnumerator TransitionOutMinigameCoroutine()
     {
+        gameScenes[_currentSceneIndex].SceneCamera.gameObject.SetActive(true);
+        gameScenes[_currentSceneIndex].SceneCamera.GetComponent<FadeCamera>().FadeIn(1f);
+        yield return new WaitForSeconds(1f);
+        
+        puertaAlcalaPivot.SetActive(true);
+        puertaAlcalaPivot.transform.DOScale(1f, 1f).From(10f);
+        yield return new WaitForSeconds(1f);
+
         // Empezar a echar para atras camara
         
         // En 0.1f segundos, Fade to black
@@ -139,20 +148,34 @@ public class MainController : MonoBehaviour
         
         gameScenes[_currentSceneIndex].SceneWon -= OnSceneWon;
         gameScenes[_currentSceneIndex].SceneLost -= OnSceneLost;
-        
-        // Transition out
-        StartCoroutine(TransitionOutMinigameCoroutine());
 
+        StartCoroutine(OnSceneWonCoroutine());
+    }
+
+    public IEnumerator OnSceneWonCoroutine()
+    {
+        // Transition out
+        yield return StartCoroutine(TransitionOutMinigameCoroutine());
+        
+        // Load Scene in background
+        var loadSceneOperation = SceneManager.UnloadSceneAsync(gameScenes[_currentSceneIndex].UnitySceneReference.SceneName);
+        loadSceneOperation.completed += (x) => 
+        {
+            Debug.Log("Unloaded Level Asynchronously with name " + gameScenes[_currentSceneIndex].UnitySceneReference.SceneName);
+        };
+        
         _currentSceneIndex++;
         
         // Load the next scene
         if (_currentSceneIndex >= gameScenes.Count)
         {
             Debug.Log("Congratulations, you've finished all the levels!");
-            return;
+            yield break;
         }
         
         InitMinigame(_currentSceneIndex);
+        
+        StartCoroutine(TransitionInMinigameCoroutine());
         
         Debug.Log("CurrentSceneIndex " + _currentSceneIndex);
     }
