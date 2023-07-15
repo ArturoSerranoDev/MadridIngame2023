@@ -74,6 +74,9 @@ public class EndlessRunnerScene : BaseScene
 
     protected override void OnKeyboardInputPressed(KeyCode keyPressed)
     {
+        if(!HasGameStarted)
+            return;
+        
         if (keyPressed == KeyCode.D)
         {
             if (_playerPositionType == PlayerPositionType.Left)

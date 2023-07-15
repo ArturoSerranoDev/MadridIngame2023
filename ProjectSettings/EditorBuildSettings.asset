@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Levels/Traffic/S_Traffic.unity
     guid: 86593fef9122dc64e87bb85a056b735f
+  - enabled: 1
+    path: Assets/_Project/Levels/Avion/S_Avion.unity
+    guid: adf0a49bdae065e46827233f3b95ed16
   m_configObjects: {}

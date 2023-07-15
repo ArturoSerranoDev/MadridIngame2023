@@ -1168,8 +1168,9 @@ MonoBehaviour:
   playButtonGO: {fileID: 2000582510}
   gameState: 0
   gameScenes:
-  - {fileID: 1780028350}
+  - {fileID: 1845870069}
   - {fileID: 979963887}
+  - {fileID: 1780028350}
   GreyFloorImage: {fileID: 1049257672}
   OsoImage: {fileID: 1477365288}
   SchweppsImage: {fileID: 1339780680}
@@ -1605,9 +1606,10 @@ MonoBehaviour:
     m_IsDirty: 0
     m_ScenePath: Assets/_Project/Levels/CurvedEndlessRunner/S_CurvedEndlessRunner.unity
   sceneCamera: {fileID: 0}
-  sceneDuration: 5
-  sceneTitle: "\xA1Esquiva y recoge la basura!"
+  sceneDuration: 8
+  sceneTitle: "\xA1Esquiva y recoge al menos 3 bolsas de basura!"
   HasGameStarted: 0
+  trashCleaned: 0
 --- !u!1 &1022608363
 GameObject:
   m_ObjectHideFlags: 0
@@ -2061,6 +2063,7 @@ Transform:
   - {fileID: 979963886}
   - {fileID: 1780028349}
   - {fileID: 12044598}
+  - {fileID: 1845870068}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2423,6 +2426,69 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1845870067
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1845870068}
+  - component: {fileID: 1845870069}
+  m_Layer: 0
+  m_Name: Avion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1845870068
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845870067}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1310503550}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1845870069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845870067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d00dde9e0041c4a836494a471fbebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitySceneReference:
+    m_SceneAsset: {fileID: 102900000, guid: adf0a49bdae065e46827233f3b95ed16, type: 3}
+    m_IsDirty: 0
+    m_ScenePath: Assets/_Project/Levels/Avion/S_Avion.unity
+  sceneCamera: {fileID: 0}
+  sceneDuration: 5
+  sceneTitle: Base Scene
+  HasGameStarted: 0
+  acceleration: 10
+  Maxspeed: 10
+  nubesPrefab01: {fileID: 1881368337214241262, guid: 15fc0716ce012484a96ff7c25db27772, type: 3}
+  nubesPrefab02: {fileID: 4768835824035916489, guid: 38c0ded9cf221bb4dabddce0f3516555, type: 3}
+  nubesPrefab03: {fileID: 467254399914054285, guid: 50b0a9ab5119eb64fb9612eb59729211, type: 3}
+  spawnRateMin: 0.5
+  spawnRateMax: 1.5
+  spawnTimer: 0.5
+  rebote: 5
+  nubesRecogidas: 0
+  nubesVictoria: 0
 --- !u!1001 &1960280604
 PrefabInstance:
   m_ObjectHideFlags: 0
