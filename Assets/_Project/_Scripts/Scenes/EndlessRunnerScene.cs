@@ -7,17 +7,12 @@ public class EndlessRunnerScene : BaseScene
     // private GameObject playerCharacter;
     // private GameObject playerCharacter;
     private EndlessRunnerRefs _endlessRunnerRefs;
-
-    private GameObject playerCharacter;
     
     public override void Init(InputController inputControllerRef)
     {
         base.Init(inputControllerRef);
         
         _endlessRunnerRefs = FindObjectOfType<EndlessRunnerRefs>();
-
-        playerCharacter = _endlessRunnerRefs.playerCharacter;
-        
     }
 
     // Method used whenever time ends. It may yield a positive or negative result
