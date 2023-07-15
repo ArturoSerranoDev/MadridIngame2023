@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DevLocker.Utils;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -36,6 +38,7 @@ public class MainController : MonoBehaviour
     [Header("Parameters")]
     
     private int _currentSceneIndex = 0;
+    private BaseScene _currentScene;
     
     private void Start()
     {
@@ -52,6 +55,7 @@ public class MainController : MonoBehaviour
         
         StartCoroutine(TransitionInMinigameCoroutine());
     }
+    
     private IEnumerator TransitionInMinigameCoroutine()
     {
         // Fade in Puerta cerrada
@@ -63,8 +67,8 @@ public class MainController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         
         // Puerta abre (in black)
-        testPuertaIzquierda.transform.DOMoveX(-6f, 1f).SetEase(Ease.InOutSine);
-        testPuertaDerecha.transform.DOMoveX(6f, 1f).SetEase(Ease.InOutSine);
+        testPuertaIzquierda.transform.DOLocalMoveX(-6f, 1f).SetEase(Ease.InOutSine);
+        testPuertaDerecha.transform.DOLocalMoveX(6f, 1f).SetEase(Ease.InOutSine);
         yield return new WaitForSeconds(1f);
 
         // Fade in Controllers si no se han explicado
@@ -74,12 +78,16 @@ public class MainController : MonoBehaviour
         // Animar Score, win or lose
         scoreText.gameObject.SetActive(true);
         scoreText.DOFade(1f, 0.5f).From(0f);
-        
+        yield return new WaitForSeconds(0.5f);
+
         // Fade in juego y texto a la vez
+        sceneTitleText.gameObject.SetActive(true);
         sceneTitleText.transform.DOScale(1f, 1f).From(5f);
-        
-        
+        yield return new WaitForSeconds(1f);
+
         // Texto empieza en grande y lerpea hasta tamaño pequeño
+        gameScenes[_currentSceneIndex].SceneCamera.gameObject.SetActive(true);
+        gameScenes[_currentSceneIndex].SceneCamera.GetComponent<FadeCamera>().FadeOut(1f);
         
         // Cuando el texto termina de lerpear, se agranda la view hasta dejar 100% view de la camara de la escena
 
@@ -103,12 +111,19 @@ public class MainController : MonoBehaviour
     {
         _currentSceneIndex = sceneIndex;
         
-        gameScenes[_currentSceneIndex].Init(inputController);
+        // Load Scene in background
+        var loadSceneOperation = SceneManager.LoadSceneAsync(gameScenes[_currentSceneIndex].UnitySceneReference.SceneName, LoadSceneMode.Additive);
+        loadSceneOperation.completed += (x) => 
+        {
+            Debug.Log("Loaded Level Asynchronously with name " + gameScenes[_currentSceneIndex].UnitySceneReference.SceneName);
+            
+            gameScenes[_currentSceneIndex].Init(inputController);
         
-        gameScenes[_currentSceneIndex].SceneWon += OnSceneWon;
-        gameScenes[_currentSceneIndex].SceneLost += OnSceneLost;
+            gameScenes[_currentSceneIndex].SceneWon += OnSceneWon;
+            gameScenes[_currentSceneIndex].SceneLost += OnSceneLost;
         
-        sceneTitleText.text = gameScenes[_currentSceneIndex].sceneTitle;
+            sceneTitleText.text = gameScenes[_currentSceneIndex].sceneTitle;
+        };
     }
     
     private void OnSceneWon()
