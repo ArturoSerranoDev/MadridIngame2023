@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Analytics;
+using Unity.VisualScripting;
 
 public enum GameState
 {
@@ -30,6 +31,8 @@ public class MainController : MonoBehaviour
     [SerializeField, Space] private GameObject permanentCanvas;
     [SerializeField] private GameObject mainMenuCanvas;
     [SerializeField] private Image timerFillBar;
+    [SerializeField] private GameObject finalScorePanel;
+    [SerializeField] private TextMeshProUGUI finalScoreText;
 
     [SerializeField, Space] private GameObject puertaAlcalaPivot;
     [SerializeField] private GameObject puertaAlcalaDoor;
@@ -250,18 +253,23 @@ public class MainController : MonoBehaviour
         var loadSceneOperation = SceneManager.UnloadSceneAsync(gameScenes[_currentSceneIndex].UnitySceneReference.SceneName);
         loadSceneOperation.completed += (x) => 
         {
-            Debug.Log("Unloaded Level Asynchronously with name " + gameScenes[_currentSceneIndex].UnitySceneReference.SceneName);
+            //Debug.Log("Unloaded Level Asynchronously with name " + gameScenes[_currentSceneIndex].UnitySceneReference.SceneName);
         };
         
         _currentSceneIndex++;
         
         // Load the next scene
-        if (_currentSceneIndex >= gameScenes.Count)
+        if (_currentSceneIndex > gameScenes.Count)
         {
-            Debug.Log("Congratulations, you've finished all the levels!");
+            // GAME OVER
+
+            // update final score text
+            finalScoreText.text = "¡Conseguiste superar " + _currentScore + "/5 pruebas!\r\n\r\nEsc - Jugar de nuevo";
+            // show final score panel
+            finalScorePanel.transform.DOScale(1f, 1f).SetEase(Ease.OutBounce);
             yield break;
         }
-        
+
         InitMinigame(_currentSceneIndex);
         
         StartCoroutine(TransitionInMinigameCoroutine());
