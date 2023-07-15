@@ -639,7 +639,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -362}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 2014.124, y: 417.78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &338967426
@@ -953,7 +953,7 @@ MonoBehaviour:
   gameScenes:
   - {fileID: 979963887}
   - {fileID: 1845870069}
-  - {fileID: 0}
+  - {fileID: 12044599}
   GreyFloorImage: {fileID: 1049257672}
   OsoImage: {fileID: 1477365288}
   SchweppsImage: {fileID: 1339780680}
@@ -1840,7 +1840,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -123}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 310, y: 77.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1166561007
@@ -2192,7 +2192,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -525}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1692.74, y: 498.1259}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1467832705
