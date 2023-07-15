@@ -15,6 +15,16 @@ public class EndlessRunnerScene : BaseScene
         base.Init(inputControllerRef);
     }
 
+    public override void Update()
+    {
+        base.Update();
+        
+        if (HasGameStarted)
+        {
+            _endlessRunnerRefs.rotatingWorld.transform.RotateAround(_endlessRunnerRefs.rotatingWorld.transform.position, Vector3.forward, 20f * Time.deltaTime);
+        }
+    }
+
     // Method used whenever time ends. It may yield a positive or negative result
     // depending on Scene Logic
     protected override void TimeoutEnded()
