@@ -17,6 +17,6 @@ public class FadeCamera : MonoBehaviour
     
     public void FadeOut(float duration)
     {
-        cameraCanvasGroup.DOFade(0f, duration);
+        cameraCanvasGroup.DOFade(0f, duration).From(1f);
     }
 }
