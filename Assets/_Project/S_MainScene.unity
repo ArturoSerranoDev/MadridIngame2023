@@ -1717,7 +1717,7 @@ MonoBehaviour:
     m_ScenePath: Assets/_Project/Levels/CurvedEndlessRunner/S_CurvedEndlessRunner.unity
   sceneCamera: {fileID: 0}
   sceneDuration: 8
-  sceneTitle: "\xA1Esquiva y recoge al menos 3 bolsas de basura!"
+  sceneTitle: "\xA1Salta al menos 3 bolsas de Basura!"
   HasGameStarted: 0
   trashCleaned: 0
 --- !u!1 &1022608363
@@ -2791,6 +2791,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 4268042965787357892, guid: 03f40ee16c600634ba22a79bbfac3b44, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1e470b767d755db498db52a471cfb868, type: 2}
     - target: {fileID: 4878498122401541581, guid: 03f40ee16c600634ba22a79bbfac3b44, type: 3}
       propertyPath: m_Layer
       value: 7
