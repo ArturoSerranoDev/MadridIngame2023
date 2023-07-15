@@ -35,6 +35,7 @@ public class MainController : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI sceneTitleText;
+    [SerializeField] private GameObject playButtonGO;
 
     [SerializeField, Space] private GameState gameState = GameState.MainMenu;
     [SerializeField] private List<BaseScene> gameScenes;
@@ -65,12 +66,52 @@ public class MainController : MonoBehaviour
 
     public void OnPlayButtonPressed()
     {
+        playButtonGO.SetActive(false);
         // INTRO DEL JUEGO
-        mainMenuCanvas.gameObject.SetActive(false);
+        StartCoroutine(IntroSequence());
+    }
+
+    [SerializeField] private Image GreyFloorImage;
+    [SerializeField] private Image OsoImage;
+    [SerializeField] private Image SchweppsImage;
+    [SerializeField] private Image AlcalaImage;
+    [SerializeField] private Image GameTitleImage;
+    
+    public IEnumerator IntroSequence()
+    {
+        // OsoImage.transform.doro(OsoImage.transform.localEulerAngles,1f).SetLoops(-1, LoopType.Incremental);
+        OsoImage.transform.DOShakeRotation(3f, 10f, 20, 90f, true);
+        SchweppsImage.transform.DOShakeRotation(3f, 10f, 20, 90f, true);
+        AlcalaImage.transform.DOShakeRotation(3f, 10f, 20, 90f, true);
+        
+        GameTitleImage.transform.DOScale(12f, 3f);
+        GameTitleImage.transform.DOLocalMoveY(GameTitleImage.transform.localPosition.y - 200f, 3f);
+        
+
+        yield return new WaitForSeconds(3f);
+ 
+        GreyFloorImage.transform.DOScale(17f, 1f);
+        GreyFloorImage.transform.DOLocalMoveY(-1900f, 1f);
+        
+        OsoImage.transform.DOLocalMoveX(1541f, 1f);
+        OsoImage.transform.DOLocalMoveY(700f, 1f);
+        
+        SchweppsImage.transform.DOLocalMoveY(1000f, 1f);
+        SchweppsImage.transform.DOLocalMoveX(-1180f, 1f);
+        
+        AlcalaImage.transform.DOLocalMoveY(AlcalaImage.transform.localPosition.y + 2000f, 1f);
+        
+        yield return new WaitForSeconds(2f);
+
+        GameTitleImage.transform.DOLocalMoveY(GameTitleImage.transform.localPosition.y + 1000f, 2f);
+        
+        // Aparecer a la vez la puerta de alcala
+
         
         InitMinigame(0);
         
         StartCoroutine(TransitionInMinigameCoroutine(firstTime: true));
+        yield return null;
     }
     
     private IEnumerator TransitionInMinigameCoroutine(bool firstTime = false)
