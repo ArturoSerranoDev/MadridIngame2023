@@ -82,18 +82,18 @@ public class MainController : MonoBehaviour
         sceneTitleText.transform.DOScale(1f, 1f).From(5f);
         yield return new WaitForSeconds(1f);
 
+        scoreText.DOFade(0f, 0.5f).From(1f);
         puertaAlcalaPivot.transform.DOScale(10, 1f).From(1f);
+        gameScenes[_currentSceneIndex].SceneCamera.gameObject.SetActive(true);
+        gameScenes[_currentSceneIndex].SceneCamera.GetComponent<FadeCamera>().FadeOut(1f);
         yield return new WaitForSeconds(1f);
         
         puertaAlcalaPivot.SetActive(false);
+        
+        yield return new WaitForSeconds(1f);
         fullCanvas.SetActive(false);
-        
-        // Texto empieza en grande y lerpea hasta tamaño pequeño
-        gameScenes[_currentSceneIndex].SceneCamera.gameObject.SetActive(true);
-        gameScenes[_currentSceneIndex].SceneCamera.GetComponent<FadeCamera>().FadeOut(1f);
-        
-        // Cuando el texto termina de lerpear, se agranda la view hasta dejar 100% view de la camara de la escena
 
+        
         yield return new WaitForEndOfFrame();
     }
 
