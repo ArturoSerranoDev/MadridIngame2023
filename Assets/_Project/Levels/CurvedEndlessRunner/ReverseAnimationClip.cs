@@ -111,6 +111,7 @@ public class ReverseAnimationClip : ScriptableWizard
             AnimationUtility.SetAnimationEvents(reversedClip, events);
         }
 
+
         Debug.Log("[[ReverseAnimationClip.cs]] Successfully reversed " +
         "animation clip " + fileName + ".");
     }
@@ -123,5 +124,6 @@ public class ReverseAnimationClip : ScriptableWizard
             return clips[0] as AnimationClip;
         }
         return null;
+        
     }
 }

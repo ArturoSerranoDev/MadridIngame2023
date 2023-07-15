@@ -17,6 +17,8 @@ public class EndlessRunnerScene : BaseScene
     private PlayerPositionType _playerPositionType = PlayerPositionType.Center;
     private EndlessRunnerRefs _endlessRunnerRefs;
 
+    private bool isJumping = false;
+    
     public override void StartGame()
     {
         base.StartGame();
@@ -28,6 +30,9 @@ public class EndlessRunnerScene : BaseScene
     {
         _endlessRunnerRefs = FindObjectOfType<EndlessRunnerRefs>();
         sceneCamera = _endlessRunnerRefs.runnerCamera;
+
+        _endlessRunnerRefs.playerRunner.endlessRunnerScene = this; // DONT DO THIS AT HOME
+        
         base.Init(inputControllerRef);
     }
 
@@ -60,8 +65,30 @@ public class EndlessRunnerScene : BaseScene
         base.Unload();
     }
 
+    public void OnPlayerTriggerEnter(Collider other)
+    {
+        if(!isJumping)
+            Lose();
+        else
+        {
+            _endlessRunnerRefs.playerRunner.trashCleaned++;
+            _endlessRunnerRefs.playerRunner.playerScore.text = _endlessRunnerRefs.playerRunner.trashCleaned.ToString();
+            Destroy(other.gameObject);
+        }
+    }
+
     protected override void OnMouseLeftClick()
     {
+        _endlessRunnerRefs.playerRunner.playerAnimator.SetBool("Jump", true);
+        isJumping = true;
+        
+        Invoke( "SetJumpToFalse", 1.28f);
+    }
+    
+    public void SetJumpToFalse()
+    {
+        _endlessRunnerRefs.playerRunner.playerAnimator.SetBool("Jump", false);
+        isJumping = false;
     }
 
     protected override void OnMouseRightClick()

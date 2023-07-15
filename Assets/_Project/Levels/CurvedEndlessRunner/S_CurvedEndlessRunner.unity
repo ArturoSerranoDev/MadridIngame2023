@@ -921,7 +921,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 920117865}
   playerScore: {fileID: 81988005}
+  endlessRunnerScene: {fileID: 0}
   trashCleaned: 0
+  isJumping: 0
 --- !u!1001 &1060767675
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -944,7 +946,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5660270475109805917, guid: a42df9b9abaee1e48a033e736b9f4ea6, type: 3}
       propertyPath: m_Alpha
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7182258063483242303, guid: a42df9b9abaee1e48a033e736b9f4ea6, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag

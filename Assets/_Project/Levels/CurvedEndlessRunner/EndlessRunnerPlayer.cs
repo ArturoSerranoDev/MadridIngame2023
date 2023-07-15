@@ -6,28 +6,15 @@ using UnityEngine;
 
 public class EndlessRunnerPlayer : MonoBehaviour
 {
-    [SerializeField] private Animator playerAnimator;
-    [SerializeField] private TextMeshProUGUI playerScore;
+    [SerializeField] public Animator playerAnimator;
+    [SerializeField] public TextMeshProUGUI playerScore;
     
+    public EndlessRunnerScene endlessRunnerScene;
     public int trashCleaned = 0;
+    public bool isJumping = false;
+    
     private void OnTriggerEnter(Collider other)
     {
-        // Play success SFX 
-        
-        // Play Jump Animation
-        playerAnimator.SetBool("Jump", true);
-        
-        // Remove object
-        Destroy(other.gameObject);
-
-        trashCleaned++;
-        playerScore.text = trashCleaned.ToString();
-        
-        Invoke("SetJumpFalse", 0.5f);
-    }
-    
-    private void SetJumpFalse()
-    {
-        playerAnimator.SetBool("Jump", false);
+        endlessRunnerScene.OnPlayerTriggerEnter(other);
     }
 }
