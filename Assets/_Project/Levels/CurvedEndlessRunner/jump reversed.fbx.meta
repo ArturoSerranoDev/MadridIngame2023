@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b1028b1decb22064da5ff71285cd91dc
+guid: 4c54e40fbfe4b674eb96198f807ae0e5
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -15,7 +15,7 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
-    motionNodeName: 
+    motionNodeName: ZBrush_defualt_group
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
@@ -37,7 +37,7 @@ ModelImporter:
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 16
+      lastFrame: 28
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -106,8 +106,7 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips:
-  - 6bcc50b8e6dc777438c05abe054a756b
+  referencedClips: []
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
