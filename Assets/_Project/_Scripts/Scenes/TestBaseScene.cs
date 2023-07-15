@@ -12,6 +12,12 @@ public class TestBaseScene : BaseScene
         base.Init(inputControllerRef);
     }
 
+    protected override void TimeoutEnded()
+    {
+        base.TimeoutEnded();
+        Lose();
+    }
+
     public override void StartGame()
     {
         base.StartGame();

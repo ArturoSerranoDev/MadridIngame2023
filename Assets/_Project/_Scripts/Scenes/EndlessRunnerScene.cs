@@ -9,13 +9,14 @@ public class EndlessRunnerScene : BaseScene
     private EndlessRunnerRefs _endlessRunnerRefs;
 
     private GameObject playerCharacter;
-    private GameObject 
+    
     public override void Init(InputController inputControllerRef)
     {
         base.Init(inputControllerRef);
         
         _endlessRunnerRefs = FindObjectOfType<EndlessRunnerRefs>();
-        
+
+        playerCharacter = _endlessRunnerRefs.playerCharacter;
         
     }
 

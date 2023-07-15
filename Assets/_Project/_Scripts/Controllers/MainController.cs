@@ -6,6 +6,7 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum GameState
 {
@@ -25,28 +26,43 @@ public class MainController : MonoBehaviour
     
     [SerializeField] private Camera mainCamera;
     
-    [SerializeField] private GameObject fullCanvas;
+    [SerializeField, Space] private GameObject permanentCanvas;
     [SerializeField] private GameObject mainMenuCanvas;
-    [SerializeField] private GameObject puertaAlcalaPivot;
+    [SerializeField] private Image timerFillBar;
+
+    [SerializeField, Space] private GameObject puertaAlcalaPivot;
     [SerializeField] private GameObject puertaAlcalaDoor;
 
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI sceneTitleText;
 
-    [SerializeField] private GameState gameState = GameState.MainMenu;
+    [SerializeField, Space] private GameState gameState = GameState.MainMenu;
     [SerializeField] private List<BaseScene> gameScenes;
     
-    [Header("Parameters")]
-    
     private int _currentSceneIndex = 0;
-    private BaseScene _currentScene;
+    private int _currentScore = 0;
+    
+    private bool _hasGameStarted = false;
+    
     
     private void Start()
     {
         scoreText.gameObject.SetActive(false);
         sceneTitleText.gameObject.SetActive(false);
     }
-    
+
+    private void Update()
+    {
+        if (_hasGameStarted)
+        {
+            timerFillBar.fillAmount -= Time.deltaTime / gameScenes[_currentSceneIndex].sceneDuration;
+        }
+        else
+        {
+            timerFillBar.fillAmount = 0f;
+        }
+    }
+
     public void OnPlayButtonPressed()
     {
         // INTRO DEL JUEGO
@@ -59,9 +75,11 @@ public class MainController : MonoBehaviour
     
     private IEnumerator TransitionInMinigameCoroutine(bool firstTime = false)
     {
-        fullCanvas.SetActive(true);
+        permanentCanvas.SetActive(true);
         scoreText.gameObject.SetActive(false);
         sceneTitleText.gameObject.SetActive(false);
+
+        scoreText.text = _currentScore.ToString();
 
         if (firstTime)
         {
@@ -99,10 +117,13 @@ public class MainController : MonoBehaviour
         puertaAlcalaPivot.SetActive(false);
         
         yield return new WaitForSeconds(1f);
-        fullCanvas.SetActive(false);
-        
+        // permanentCanvas.SetActive(false);
+        sceneTitleText.gameObject.SetActive(false);
+            
+        // EMPIEZA JUEGO
         gameScenes[_currentSceneIndex].StartGame();
-
+        timerFillBar.fillAmount = 1f;
+        _hasGameStarted = true;
         
         yield return new WaitForEndOfFrame();
     }
@@ -149,16 +170,33 @@ public class MainController : MonoBehaviour
     
     private void OnSceneWon()
     {
+        _currentScore++; // add 1 to score
+        
+       OnSceneEnded();
+    }
+    
+    private void OnSceneLost()
+    {
+        OnSceneEnded();
+    }
+
+    private void OnSceneEnded()
+    {
+        _hasGameStarted = false;
+        
+        scoreText.text = _currentScore.ToString();
+
         // Unload the current scene
         gameScenes[_currentSceneIndex].Unload();
         
         gameScenes[_currentSceneIndex].SceneWon -= OnSceneWon;
         gameScenes[_currentSceneIndex].SceneLost -= OnSceneLost;
+        
 
-        StartCoroutine(OnSceneWonCoroutine());
+        StartCoroutine(OnScenePassedCoroutine());
     }
 
-    public IEnumerator OnSceneWonCoroutine()
+    public IEnumerator OnScenePassedCoroutine()
     {
         // Transition out
         yield return StartCoroutine(TransitionOutMinigameCoroutine());
@@ -184,12 +222,5 @@ public class MainController : MonoBehaviour
         StartCoroutine(TransitionInMinigameCoroutine());
         
         Debug.Log("CurrentSceneIndex " + _currentSceneIndex);
-    }
-    
-    private void OnSceneLost()
-    {
-        // Unload the current scene
-        
-        // Transition out
     }
 }
