@@ -14,7 +14,7 @@ public class Avion : BaseScene
     public GameObject nubesPrefab03;
     public float spawnRateMin = .5f, spawnRateMax = 1.5f, spawnTimer = .5f;
     int nube;
-    public float rebote = 5;
+    public float rebote = 1f;
     public int nubesRecogidas = 0, nubesVictoria;
 
     public override void Init(InputController inputControllerRef)

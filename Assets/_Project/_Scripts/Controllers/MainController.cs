@@ -7,6 +7,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Analytics;
 
 public enum GameState
 {
@@ -44,8 +45,12 @@ public class MainController : MonoBehaviour
     private int _currentScore = 0;
     
     private bool _hasGameStarted = false;
-    
-    
+
+    void OnEnable()
+    {
+        inputController.EscPressAction += RestartGame;
+    }
+
     private void Start()
     {
         scoreText.gameObject.SetActive(false);
@@ -262,5 +267,13 @@ public class MainController : MonoBehaviour
         StartCoroutine(TransitionInMinigameCoroutine());
         
         Debug.Log("CurrentSceneIndex " + _currentSceneIndex);
+    }
+
+    void RestartGame()
+    {
+        if (!_hasGameStarted)
+            Application.Quit();
+
+        SceneManager.LoadScene(0);
     }
 }

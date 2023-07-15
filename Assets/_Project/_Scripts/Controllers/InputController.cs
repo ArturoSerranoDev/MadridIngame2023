@@ -13,6 +13,7 @@ public class InputController : MonoBehaviour
     public Action MouseLeftClickAction;
     public Action MouseRightClickAction;
     public Action<Vector2> MouseMoveAction;
+    public Action EscPressAction;
     
     private void Update()
     {
@@ -25,6 +26,10 @@ public class InputController : MonoBehaviour
         {
             KeyboardInputAction?.Invoke(KeyCode.D);
             Debug.Log("Right Key Pressed");
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            EscPressAction?.Invoke();
         }
         
         // Mouse Input

@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/_Project/Levels/CurvedEndlessRunner/S_CurvedEndlessRunner.unity
     guid: 51fcccd5768055d4d9b34890eebd1a96
   - enabled: 1
-    path: Assets/_Project/Levels/TestLevel/S_TestLevel.unity
-    guid: 754604c5a63c26b4e8bfc95ad1e600fb
-  - enabled: 1
     path: Assets/_Project/Levels/Traffic/S_Traffic.unity
     guid: 86593fef9122dc64e87bb85a056b735f
   - enabled: 1
