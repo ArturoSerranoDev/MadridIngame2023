@@ -40,7 +40,7 @@ public abstract class BaseScene: MonoBehaviour
       }
    }
 
-   public void StartGame()
+   public virtual void StartGame()
    {
       HasGameStarted = true;
    }

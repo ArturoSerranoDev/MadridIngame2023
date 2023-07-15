@@ -84,6 +84,7 @@ public class MainController : MonoBehaviour
 
         scoreText.DOFade(0f, 0.5f).From(1f);
         puertaAlcalaPivot.transform.DOScale(10, 1f).From(1f);
+        
         gameScenes[_currentSceneIndex].SceneCamera.gameObject.SetActive(true);
         gameScenes[_currentSceneIndex].SceneCamera.GetComponent<FadeCamera>().FadeOut(1f);
         yield return new WaitForSeconds(1f);
@@ -92,6 +93,8 @@ public class MainController : MonoBehaviour
         
         yield return new WaitForSeconds(1f);
         fullCanvas.SetActive(false);
+        
+        gameScenes[_currentSceneIndex].StartGame();
 
         
         yield return new WaitForEndOfFrame();
