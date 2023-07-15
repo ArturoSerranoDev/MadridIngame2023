@@ -36,15 +36,12 @@ public class Avion : BaseScene
         else
             Lose();
     }
-    protected override void OnKeyboardInputPressed(KeyCode keyPressed)
+    protected override void OnMouseLeftClick()
     {
-        base.OnKeyboardInputPressed(keyPressed);
+        base.OnMouseLeftClick();
 
-        if (keyPressed == KeyCode.A)
-        {
-            gravity = !gravity;
-            print(gravity);
-        }
+        gravity = !gravity;
+        print(gravity);
     }
     private void LateUpdate()
     {
