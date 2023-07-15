@@ -54,18 +54,24 @@ public class MainController : MonoBehaviour
         
         InitMinigame(0);
         
-        StartCoroutine(TransitionInMinigameCoroutine());
+        StartCoroutine(TransitionInMinigameCoroutine(firstTime: true));
     }
     
-    private IEnumerator TransitionInMinigameCoroutine()
+    private IEnumerator TransitionInMinigameCoroutine(bool firstTime = false)
     {
         fullCanvas.SetActive(true);
-        mainCamera.GetComponent<FadeCamera>().FadeOut(2f);
-        yield return new WaitForSeconds(2f);
+        scoreText.gameObject.SetActive(false);
+        sceneTitleText.gameObject.SetActive(false);
 
-        // Puerta abre (in black)
-        puertaAlcalaDoor.transform.DOLocalMoveY(2, 1f);     
-        yield return new WaitForSeconds(1f);
+        if (firstTime)
+        {
+            mainCamera.GetComponent<FadeCamera>().FadeOut(2f);
+            yield return new WaitForSeconds(2f);
+
+            // Puerta abre (in black)
+            puertaAlcalaDoor.transform.DOLocalMoveY(2, 1f);     
+            yield return new WaitForSeconds(1f);
+        }
 
         // Fade in Controllers si no se han explicado
         
@@ -74,7 +80,7 @@ public class MainController : MonoBehaviour
         // Animar Score, win or lose
         scoreText.gameObject.SetActive(true);
         scoreText.DOFade(1f, 0.5f).From(0f);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
 
         // Fade in juego y texto a la vez
         gameScenes[_currentSceneIndex].SceneCamera.gameObject.SetActive(true);
