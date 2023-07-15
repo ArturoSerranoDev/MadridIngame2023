@@ -58,6 +58,7 @@ public abstract class BaseScene: MonoBehaviour
       }
       
       SceneCamera = GameObject.FindWithTag(CameraTag).GetComponent<Camera>();
+      SceneCamera.gameObject.SetActive(false);
       
       inputController.KeyboardInputAction += OnKeyboardInputPressed;
       inputController.MouseLeftClickAction += OnMouseLeftClick;

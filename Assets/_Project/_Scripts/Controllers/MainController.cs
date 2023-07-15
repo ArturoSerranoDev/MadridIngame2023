@@ -23,15 +23,16 @@ public class MainController : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField] private InputController inputController;
     
-    [SerializeField] private GameObject mainCanvas;
-    [SerializeField] private GameObject marcoAlrededorEscena;
+    [SerializeField] private Camera mainCamera;
+    
+    [SerializeField] private GameObject fullCanvas;
+    [SerializeField] private GameObject mainMenuCanvas;
+    [SerializeField] private GameObject puertaAlcalaPivot;
+    [SerializeField] private GameObject puertaAlcalaDoor;
 
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI sceneTitleText;
-    
-    [SerializeField] private GameObject testPuertaIzquierda;
-    [SerializeField] private GameObject testPuertaDerecha;
-    
+
     [SerializeField] private GameState gameState = GameState.MainMenu;
     [SerializeField] private List<BaseScene> gameScenes;
     
@@ -49,7 +50,7 @@ public class MainController : MonoBehaviour
     public void OnPlayButtonPressed()
     {
         // INTRO DEL JUEGO
-        mainCanvas.gameObject.SetActive(false);
+        mainMenuCanvas.gameObject.SetActive(false);
         
         InitMinigame(0);
         
@@ -58,17 +59,11 @@ public class MainController : MonoBehaviour
     
     private IEnumerator TransitionInMinigameCoroutine()
     {
-        // Fade in Puerta cerrada
-        marcoAlrededorEscena.gameObject.SetActive(true);
-        foreach (Transform child in marcoAlrededorEscena.transform)
-        {
-            child.GetComponent<Renderer>().material.DOFade(1f, 0.5f).From(0f);
-        }
-        yield return new WaitForSeconds(0.5f);
-        
+        mainCamera.GetComponent<FadeCamera>().FadeOut(2f);
+        yield return new WaitForSeconds(2f);
+
         // Puerta abre (in black)
-        testPuertaIzquierda.transform.DOLocalMoveX(-6f, 1f).SetEase(Ease.InOutSine);
-        testPuertaDerecha.transform.DOLocalMoveX(6f, 1f).SetEase(Ease.InOutSine);
+        puertaAlcalaDoor.transform.DOLocalMoveY(2, 1f).From(0);     
         yield return new WaitForSeconds(1f);
 
         // Fade in Controllers si no se han explicado
@@ -81,10 +76,18 @@ public class MainController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         // Fade in juego y texto a la vez
+        gameScenes[_currentSceneIndex].SceneCamera.gameObject.SetActive(true);
+        
         sceneTitleText.gameObject.SetActive(true);
         sceneTitleText.transform.DOScale(1f, 1f).From(5f);
         yield return new WaitForSeconds(1f);
 
+        puertaAlcalaPivot.transform.DOScale(10, 1f).From(1f);
+        yield return new WaitForSeconds(1f);
+        
+        puertaAlcalaPivot.SetActive(false);
+        fullCanvas.SetActive(false);
+        
         // Texto empieza en grande y lerpea hasta tamaño pequeño
         gameScenes[_currentSceneIndex].SceneCamera.gameObject.SetActive(true);
         gameScenes[_currentSceneIndex].SceneCamera.GetComponent<FadeCamera>().FadeOut(1f);
