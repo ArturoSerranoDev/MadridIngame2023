@@ -1,12 +1,17 @@
 using System;
+using DevLocker.Utils;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class BaseScene: MonoBehaviour
 {
    public Action SceneWon;
    public Action SceneLost;
 
+   public SceneReference UnitySceneReference;
+   
    public Camera SceneCamera;
+   public string CameraTag;
    
    public float sceneDuration = 5f;
    public string sceneTitle = "Base Scene";
@@ -14,11 +19,14 @@ public abstract class BaseScene: MonoBehaviour
    private InputController inputController;
    
    private float timeElapsedInScene = 0f;
-   public bool IsSceneInit = false;
+   
+   public bool HasGameStarted = false;
+   
+  
    
    public void Update()
    {
-      if (IsSceneInit)
+      if (HasGameStarted)
       {
          timeElapsedInScene += Time.deltaTime;
       }
@@ -32,6 +40,11 @@ public abstract class BaseScene: MonoBehaviour
       }
    }
 
+   public void StartGame()
+   {
+      HasGameStarted = true;
+   }
+   
    public virtual void Init(InputController inputControllerRef)
    {
       // Made sure we find the inputController even if we forget to assign it
@@ -44,6 +57,9 @@ public abstract class BaseScene: MonoBehaviour
          inputController = inputControllerRef;
       }
       
+      SceneCamera = GameObject.FindWithTag(CameraTag).GetComponent<Camera>();
+      SceneCamera.gameObject.SetActive(false);
+      
       inputController.KeyboardInputAction += OnKeyboardInputPressed;
       inputController.MouseLeftClickAction += OnMouseLeftClick;
       inputController.MouseRightClickAction += OnMouseRightClick;
@@ -51,7 +67,6 @@ public abstract class BaseScene: MonoBehaviour
       
       this.gameObject.SetActive(true);
       
-      IsSceneInit = true;
       Debug.Log("Loaded Scene with name: " + gameObject.name);
    }
    
@@ -70,7 +85,7 @@ public abstract class BaseScene: MonoBehaviour
       inputController.MouseMoveAction -= OnMouseMove;
       
       this.gameObject.SetActive(false);
-      IsSceneInit = false;
+      HasGameStarted = false;
       
       Debug.Log("Unloaded Scene with name: " + gameObject.name);
    }

@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DevLocker.Utils;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -21,21 +23,23 @@ public class MainController : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField] private InputController inputController;
     
-    [SerializeField] private GameObject mainCanvas;
-    [SerializeField] private GameObject marcoAlrededorEscena;
+    [SerializeField] private Camera mainCamera;
+    
+    [SerializeField] private GameObject fullCanvas;
+    [SerializeField] private GameObject mainMenuCanvas;
+    [SerializeField] private GameObject puertaAlcalaPivot;
+    [SerializeField] private GameObject puertaAlcalaDoor;
 
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI sceneTitleText;
-    
-    [SerializeField] private GameObject testPuertaIzquierda;
-    [SerializeField] private GameObject testPuertaDerecha;
-    
+
     [SerializeField] private GameState gameState = GameState.MainMenu;
     [SerializeField] private List<BaseScene> gameScenes;
     
     [Header("Parameters")]
     
     private int _currentSceneIndex = 0;
+    private BaseScene _currentScene;
     
     private void Start()
     {
@@ -46,25 +50,20 @@ public class MainController : MonoBehaviour
     public void OnPlayButtonPressed()
     {
         // INTRO DEL JUEGO
-        mainCanvas.gameObject.SetActive(false);
+        mainMenuCanvas.gameObject.SetActive(false);
         
         InitMinigame(0);
         
         StartCoroutine(TransitionInMinigameCoroutine());
     }
+    
     private IEnumerator TransitionInMinigameCoroutine()
     {
-        // Fade in Puerta cerrada
-        marcoAlrededorEscena.gameObject.SetActive(true);
-        foreach (Transform child in marcoAlrededorEscena.transform)
-        {
-            child.GetComponent<Renderer>().material.DOFade(1f, 0.5f).From(0f);
-        }
-        yield return new WaitForSeconds(0.5f);
-        
+        mainCamera.GetComponent<FadeCamera>().FadeOut(2f);
+        yield return new WaitForSeconds(2f);
+
         // Puerta abre (in black)
-        testPuertaIzquierda.transform.DOMoveX(-6f, 1f).SetEase(Ease.InOutSine);
-        testPuertaDerecha.transform.DOMoveX(6f, 1f).SetEase(Ease.InOutSine);
+        puertaAlcalaDoor.transform.DOLocalMoveY(2, 1f).From(0);     
         yield return new WaitForSeconds(1f);
 
         // Fade in Controllers si no se han explicado
@@ -74,15 +73,27 @@ public class MainController : MonoBehaviour
         // Animar Score, win or lose
         scoreText.gameObject.SetActive(true);
         scoreText.DOFade(1f, 0.5f).From(0f);
-        
-        // Fade in juego y texto a la vez
-        sceneTitleText.transform.DOScale(1f, 1f).From(5f);
-        
-        
-        // Texto empieza en grande y lerpea hasta tamaño pequeño
-        
-        // Cuando el texto termina de lerpear, se agranda la view hasta dejar 100% view de la camara de la escena
+        yield return new WaitForSeconds(0.5f);
 
+        // Fade in juego y texto a la vez
+        gameScenes[_currentSceneIndex].SceneCamera.gameObject.SetActive(true);
+        
+        sceneTitleText.gameObject.SetActive(true);
+        sceneTitleText.transform.DOScale(1f, 1f).From(5f);
+        yield return new WaitForSeconds(1f);
+
+        scoreText.DOFade(0f, 0.5f).From(1f);
+        puertaAlcalaPivot.transform.DOScale(10, 1f).From(1f);
+        gameScenes[_currentSceneIndex].SceneCamera.gameObject.SetActive(true);
+        gameScenes[_currentSceneIndex].SceneCamera.GetComponent<FadeCamera>().FadeOut(1f);
+        yield return new WaitForSeconds(1f);
+        
+        puertaAlcalaPivot.SetActive(false);
+        
+        yield return new WaitForSeconds(1f);
+        fullCanvas.SetActive(false);
+
+        
         yield return new WaitForEndOfFrame();
     }
 
@@ -103,12 +114,19 @@ public class MainController : MonoBehaviour
     {
         _currentSceneIndex = sceneIndex;
         
-        gameScenes[_currentSceneIndex].Init(inputController);
+        // Load Scene in background
+        var loadSceneOperation = SceneManager.LoadSceneAsync(gameScenes[_currentSceneIndex].UnitySceneReference.SceneName, LoadSceneMode.Additive);
+        loadSceneOperation.completed += (x) => 
+        {
+            Debug.Log("Loaded Level Asynchronously with name " + gameScenes[_currentSceneIndex].UnitySceneReference.SceneName);
+            
+            gameScenes[_currentSceneIndex].Init(inputController);
         
-        gameScenes[_currentSceneIndex].SceneWon += OnSceneWon;
-        gameScenes[_currentSceneIndex].SceneLost += OnSceneLost;
+            gameScenes[_currentSceneIndex].SceneWon += OnSceneWon;
+            gameScenes[_currentSceneIndex].SceneLost += OnSceneLost;
         
-        sceneTitleText.text = gameScenes[_currentSceneIndex].sceneTitle;
+            sceneTitleText.text = gameScenes[_currentSceneIndex].sceneTitle;
+        };
     }
     
     private void OnSceneWon()
