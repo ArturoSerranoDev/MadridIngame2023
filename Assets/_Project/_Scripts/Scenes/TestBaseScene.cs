@@ -9,6 +9,7 @@ public class TestBaseScene : BaseScene
     
     public override void Init(InputController inputControllerRef)
     {
+        sceneCamera = GameObject.FindWithTag("Camera_Test").GetComponent<Camera>();
         base.Init(inputControllerRef);
     }
 

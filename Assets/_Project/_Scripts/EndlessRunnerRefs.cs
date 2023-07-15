@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EndlessRunnerRefs : MonoBehaviour
 {
+    public Camera runnerCamera;
     public GameObject playerCharacter;
     public Animator playerAnimator;
     public GameObject rotatingWorld;

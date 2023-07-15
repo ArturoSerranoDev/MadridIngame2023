@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1048f3c8d993cc94a9a1ff291548b15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  runnerCamera: {fileID: 1060767676}
   playerCharacter: {fileID: 920117864}
   playerAnimator: {fileID: 920117865}
   rotatingWorld: {fileID: 1633366623}
@@ -569,6 +570,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a42df9b9abaee1e48a033e736b9f4ea6, type: 3}
+--- !u!20 &1060767676 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8488357816876830555, guid: a42df9b9abaee1e48a033e736b9f4ea6, type: 3}
+  m_PrefabInstance: {fileID: 1060767675}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1165025345
 GameObject:
   m_ObjectHideFlags: 0

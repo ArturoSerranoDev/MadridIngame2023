@@ -9,9 +9,7 @@ public abstract class BaseScene: MonoBehaviour
    public Action SceneLost;
 
    public SceneReference UnitySceneReference;
-   
-   public Camera SceneCamera;
-   public string CameraTag;
+   [HideInInspector] public Camera sceneCamera;
    
    public float sceneDuration = 5f;
    public string sceneTitle = "Base Scene";
@@ -57,8 +55,7 @@ public abstract class BaseScene: MonoBehaviour
          inputController = inputControllerRef;
       }
       
-      SceneCamera = GameObject.FindWithTag(CameraTag).GetComponent<Camera>();
-      SceneCamera.gameObject.SetActive(false);
+      // SceneCamera.gameObject.SetActive(false);
       
       inputController.KeyboardInputAction += OnKeyboardInputPressed;
       inputController.MouseLeftClickAction += OnMouseLeftClick;
