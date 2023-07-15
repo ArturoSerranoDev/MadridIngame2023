@@ -22,7 +22,7 @@ public abstract class BaseScene: MonoBehaviour
    
   
    
-   public void Update()
+   public virtual void Update()
    {
       if (HasGameStarted)
       {
