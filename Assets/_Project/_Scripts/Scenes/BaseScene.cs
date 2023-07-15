@@ -31,10 +31,10 @@ public abstract class BaseScene: MonoBehaviour
       
       if (timeElapsedInScene >= sceneDuration)
       {
-         // END SCENE
-         Debug.Log("Scene Ended from timeout");
+            // END SCENE
+            Debug.Log("Scene Ended from timeout");
 
-         TimeoutEnded();
+            TimeoutEnded();
       }
    }
 
