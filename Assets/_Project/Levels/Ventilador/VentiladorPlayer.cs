@@ -47,11 +47,18 @@ public class VentiladorPlayer : MonoBehaviour
             lose = true;
         }
         
-
         if (hotting)
         {
             hot+=Time.deltaTime;
         }
-
+        else
+        {
+            hot -= Time.deltaTime / 2f;
+            
+            if (hot < 0)
+            {
+                hot = 0;
+            }
+        }
     }
 }

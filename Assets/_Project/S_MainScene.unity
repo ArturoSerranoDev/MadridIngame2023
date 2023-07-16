@@ -951,6 +951,7 @@ MonoBehaviour:
   playButtonGO: {fileID: 2000582510}
   gameState: 0
   gameScenes:
+  - {fileID: 663849154}
   - {fileID: 1221442573}
   - {fileID: 979963887}
   - {fileID: 12044599}
@@ -1171,6 +1172,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 548156520}
   m_CullTransparentMesh: 1
+--- !u!1 &663849152
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 663849153}
+  - component: {fileID: 663849154}
+  m_Layer: 0
+  m_Name: Agua
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &663849153
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663849152}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1310503550}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &663849154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663849152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0b6d6d4760916f4483e221c41020fa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitySceneReference:
+    m_SceneAsset: {fileID: 102900000, guid: ec00895f21f0bc94e85c2c914eb79392, type: 3}
+    m_IsDirty: 0
+    m_ScenePath: Assets/_Project/Levels/Agua/S_Agua.unity
+  sceneCamera: {fileID: 0}
+  sceneDuration: 5
+  sceneTitle: Base Scene
+  HasGameStarted: 0
+  fuerzaImpulso: 10
+  timerImpulso: 0.5
+  minImpulso: 0.2
+  maxImpulso: 1
+  start: 0
+  gotasBebidas: 0
+  gotasVictoria: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1991,7 +2051,7 @@ MonoBehaviour:
     m_ScenePath: Assets/_Project/Levels/Ventilador/S_Ventilador.unity
   sceneCamera: {fileID: 0}
   sceneDuration: 5
-  sceneTitle: Base Scene
+  sceneTitle: "\xA1Que te de el aire! (A / D)"
   HasGameStarted: 0
   speed: 10
   start: 0
@@ -2133,6 +2193,7 @@ Transform:
   - {fileID: 1845870068}
   - {fileID: 12044598}
   - {fileID: 1221442572}
+  - {fileID: 663849153}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2524,7 +2585,7 @@ MonoBehaviour:
     m_ScenePath: Assets/_Project/Levels/Avion/S_Avion.unity
   sceneCamera: {fileID: 0}
   sceneDuration: 5
-  sceneTitle: "\xA1Recoge 3 nubes de contaminaci\xF3n!"
+  sceneTitle: "\xA1Recoge 3 nubes de contaminaci\xF3n! (Click)"
   HasGameStarted: 0
   acceleration: 10
   Maxspeed: 10

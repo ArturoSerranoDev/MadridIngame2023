@@ -41,7 +41,7 @@ public class Ventilador : BaseScene
     protected override void TimeoutEnded()
     {
         base.TimeoutEnded();
-        if (refs.ventiladorPlayer.lose)
+        if (refs.ventiladorPlayer.hot > refs.ventiladorPlayer.maxHot / 2)
         {
             Lose();
         }
