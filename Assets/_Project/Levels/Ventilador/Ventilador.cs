@@ -7,6 +7,7 @@ public class Ventilador : BaseScene
     public float speed = 10f;
     //public float Maxspeed = 10f;
     public bool start = false;
+    [SerializeField] float maxTimeWithoutChanging = 1f;
 
     float _currentSpeed;
 
@@ -17,6 +18,8 @@ public class Ventilador : BaseScene
     {
         refs = FindAnyObjectByType<VentiladorRefs>();
         sceneCamera = refs.gameCamera;
+
+        refs.ventiladorGiro.maxTime = maxTimeWithoutChanging;
 
         base.Init(inputControllerRef);
     }
