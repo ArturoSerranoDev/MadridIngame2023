@@ -177,6 +177,11 @@ MonoBehaviour:
   HasGameStarted: 0
   carSpawnCooldown: 0.25
   carSpeed: 3
+  carColorPool:
+  - {r: 1, g: 0, b: 0, a: 0}
+  - {r: 0.07685726, g: 0.8962264, b: 0.06256672, a: 0}
+  - {r: 1, g: 0.6065695, b: 0.050943315, a: 0}
+  - {r: 0.99732214, g: 0.032075405, b: 1, a: 0}
 --- !u!1 &85820055
 GameObject:
   m_ObjectHideFlags: 0
