@@ -5,6 +5,9 @@ public class MusicController : MonoBehaviour
     public static MusicController Instance { get; private set; }
 
     [SerializeField] public AudioClip gameplayMusic;
+    [SerializeField] public AudioClip creditsMusic;
+    [SerializeField] public AudioClip introMusic;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

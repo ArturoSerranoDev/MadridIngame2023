@@ -177,11 +177,7 @@ MonoBehaviour:
   HasGameStarted: 0
   carSpawnCooldown: 0.25
   carSpeed: 3
-  carColorPool:
-  - {r: 1, g: 0, b: 0, a: 0}
-  - {r: 0.07685726, g: 0.8962264, b: 0.06256672, a: 0}
-  - {r: 1, g: 0.6065695, b: 0.050943315, a: 0}
-  - {r: 0.99732214, g: 0.032075405, b: 1, a: 0}
+  carColorPool: []
 --- !u!1 &85820055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,7 +1026,7 @@ MonoBehaviour:
   permanentCanvas: {fileID: 1022608363}
   mainMenuCanvas: {fileID: 308210571}
   timerFillBar: {fileID: 548156522}
-  finalScorePanel: {fileID: 0}
+  finalScorePanel: {fileID: 1467832703}
   finalScoreText: {fileID: 520599150}
   puertaAlcalaPivot: {fileID: 266317419}
   puertaAlcalaDoor: {fileID: 830247691}
@@ -1040,7 +1036,6 @@ MonoBehaviour:
   gameState: 0
   gameScenes:
   - {fileID: 979963887}
-  - {fileID: 1221442573}
   GreyFloorImage: {fileID: 1049257672}
   OsoImage: {fileID: 1477365288}
   SchweppsImage: {fileID: 1339780680}
@@ -2182,7 +2177,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -206}
   m_SizeDelta: {x: 1692.74, y: 498.1259}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1467832705
@@ -2315,6 +2310,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayMusic: {fileID: 8300000, guid: 24580b8530ede26478a2121a127ca3c6, type: 3}
+  creditsMusic: {fileID: 8300000, guid: 6775f4bcdaf8fc04f964d2defff2b716, type: 3}
+  introMusic: {fileID: 8300000, guid: f96443f7ce7ce4f489b095be29a46722, type: 3}
 --- !u!82 &1758164328
 AudioSource:
   m_ObjectHideFlags: 0

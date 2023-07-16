@@ -30,6 +30,7 @@ public class InputController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
             EscPressAction?.Invoke();
+            MusicController.Instance.PlaySound(MusicController.Instance.introMusic);
         }
         
         // Mouse Input

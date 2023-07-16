@@ -261,13 +261,15 @@ public class MainController : MonoBehaviour
         
         _currentSceneIndex++;
         
+        Debug.Log("CurrentSceneIndex " + _currentSceneIndex); 
+        Debug.Log( "GameScenes.Count " + gameScenes.Count);
         // Load the next scene
-        if (_currentSceneIndex > gameScenes.Count)
+        if (_currentSceneIndex >= gameScenes.Count)
         {
             // GAME OVER
-
+            MusicController.Instance.PlaySound(MusicController.Instance.creditsMusic);
             // update final score text
-            finalScoreText.text = "�Conseguiste superar " + _currentScore + "/5 pruebas!\r\n\r\nEsc - Jugar de nuevo";
+            finalScoreText.text = "�Conseguiste superar " + _currentScore + "/" + gameScenes.Count + " pruebas!\r\n\r\nEsc - Jugar de nuevo";
             // show final score panel
             finalScorePanel.transform.DOScale(1f, 1f).SetEase(Ease.OutBounce);
             yield break;
