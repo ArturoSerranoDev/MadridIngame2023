@@ -7,6 +7,8 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Analytics;
+using Unity.VisualScripting;
 
 public enum GameState
 {
@@ -29,6 +31,8 @@ public class MainController : MonoBehaviour
     [SerializeField, Space] private GameObject permanentCanvas;
     [SerializeField] private GameObject mainMenuCanvas;
     [SerializeField] private Image timerFillBar;
+    [SerializeField] private GameObject finalScorePanel;
+    [SerializeField] private TextMeshProUGUI finalScoreText;
 
     [SerializeField, Space] private GameObject puertaAlcalaPivot;
     [SerializeField] private GameObject puertaAlcalaDoor;
@@ -39,13 +43,23 @@ public class MainController : MonoBehaviour
 
     [SerializeField, Space] private GameState gameState = GameState.MainMenu;
     [SerializeField] private List<BaseScene> gameScenes;
+
+    [SerializeField] private GameObject controlsPanel;
     
+    
+    private Dictionary<BaseScene, bool > successfullGames = new Dictionary<BaseScene, bool>();
+    
+
     private int _currentSceneIndex = 0;
     private int _currentScore = 0;
     
     private bool _hasGameStarted = false;
-    
-    
+
+    void OnEnable()
+    {
+        inputController.EscPressAction += RestartGame;
+    }
+
     private void Start()
     {
         scoreText.gameObject.SetActive(false);
@@ -66,8 +80,11 @@ public class MainController : MonoBehaviour
 
     public void OnPlayButtonPressed()
     {
+        controlsPanel.SetActive(false);
         playButtonGO.SetActive(false);
         // INTRO DEL JUEGO
+        
+        MusicController.Instance.PlaySound(MusicController.Instance.gameplayMusic);
         StartCoroutine(IntroSequence());
     }
 
@@ -149,7 +166,7 @@ public class MainController : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         scoreText.DOFade(0f, 0.5f).From(1f);
-        puertaAlcalaPivot.transform.DOScale(10, 1f).From(1f);
+        puertaAlcalaPivot.transform.DOScale(50, 1f).From(1f);
         
         gameScenes[_currentSceneIndex].sceneCamera.gameObject.SetActive(true);
         gameScenes[_currentSceneIndex].sceneCamera.GetComponent<FadeCamera>().FadeOut(1f);
@@ -176,7 +193,7 @@ public class MainController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         
         puertaAlcalaPivot.SetActive(true);
-        puertaAlcalaPivot.transform.DOScale(1f, 1f).From(10f);
+        puertaAlcalaPivot.transform.DOScale(1f, 1f).From(50f);
         yield return new WaitForSeconds(1f);
 
         // Empezar a echar para atras camara
@@ -212,12 +229,16 @@ public class MainController : MonoBehaviour
     private void OnSceneWon()
     {
         _currentScore++; // add 1 to score
-        
+        successfullGames[gameScenes[_currentSceneIndex]] = true;
+            
+        AudioManager.Instance.PlaySound(AudioManager.Instance.WinRoundClip);
        OnSceneEnded();
     }
     
     private void OnSceneLost()
     {
+        successfullGames[gameScenes[_currentSceneIndex]] = false;
+
         OnSceneEnded();
     }
 
@@ -245,22 +266,54 @@ public class MainController : MonoBehaviour
         var loadSceneOperation = SceneManager.UnloadSceneAsync(gameScenes[_currentSceneIndex].UnitySceneReference.SceneName);
         loadSceneOperation.completed += (x) => 
         {
-            Debug.Log("Unloaded Level Asynchronously with name " + gameScenes[_currentSceneIndex].UnitySceneReference.SceneName);
+            //Debug.Log("Unloaded Level Asynchronously with name " + gameScenes[_currentSceneIndex].UnitySceneReference.SceneName);
         };
         
         _currentSceneIndex++;
         
+        Debug.Log("CurrentSceneIndex " + _currentSceneIndex); 
+        Debug.Log( "GameScenes.Count " + gameScenes.Count);
         // Load the next scene
         if (_currentSceneIndex >= gameScenes.Count)
         {
-            Debug.Log("Congratulations, you've finished all the levels!");
+            // GAME OVER
+            MusicController.Instance.PlaySound(MusicController.Instance.creditsMusic);
+            // update final score text
+            finalScoreText.text = "�Conseguiste superar " + _currentScore + "/" + gameScenes.Count + " pruebas!\r\n\r\nEsc - Jugar de nuevo";
+            // show final score panel
+            finalScorePanel.transform.DOScale(1f, 1f).SetEase(Ease.OutBounce);
+            
+           
             yield break;
         }
-        
+
         InitMinigame(_currentSceneIndex);
         
         StartCoroutine(TransitionInMinigameCoroutine());
         
         Debug.Log("CurrentSceneIndex " + _currentSceneIndex);
+    }
+
+    public void OnPlayAgainPressed()
+    {
+        // Remove from the list the scenes that were not completed
+        for (int i = gameScenes.Count - 1; i >= 0; i--)
+        {
+            if (!successfullGames[gameScenes[i]])
+            {
+                gameScenes.RemoveAt(i);
+            }
+        }
+
+        _currentScore = 0;
+        _currentSceneIndex = 0;
+    }
+
+    void RestartGame()
+    {
+        if (!_hasGameStarted)
+            Application.Quit();
+
+        SceneManager.LoadScene(0);
     }
 }
