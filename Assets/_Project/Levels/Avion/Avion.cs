@@ -23,8 +23,6 @@ public class Avion : BaseScene
 
     public override void Init(InputController inputControllerRef)
     {
-
-
         _references = FindObjectOfType<AvionReffs>();
 
         _references.avion.velocity = _velocity;
@@ -49,7 +47,6 @@ public class Avion : BaseScene
     }
     private void LateUpdate()
     {
-        
         if (!HasGameStarted)
             return;
 
@@ -77,8 +74,7 @@ public class Avion : BaseScene
             spawnTimer = spawnCooldown;
         }
 
-       
-
+        
         if (_references.avionTransform.position.y >= 5)
         {
             _references.avion.velocity = new Vector3(0,-rebote,0);

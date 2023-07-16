@@ -177,7 +177,15 @@ MonoBehaviour:
   HasGameStarted: 0
   carSpawnCooldown: 0.25
   carSpeed: 3
-  carColorPool: []
+  carColorPool:
+  - {r: 0.32520467, g: 0.32962945, b: 0.33962262, a: 0}
+  - {r: 0.7226771, g: 0.7299251, b: 0.754717, a: 0}
+  - {r: 0.93004626, g: 0.9348954, b: 0.9433962, a: 0}
+  - {r: 0.38679248, g: 0.3834618, b: 0.37037206, a: 0}
+  - {r: 0.990566, g: 0.9323261, b: 0.80833924, a: 0}
+  - {r: 0.832744, g: 0.8679245, b: 0.38892844, a: 0}
+  - {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 0}
+  - {r: 0.8962264, g: 0.6721698, b: 0.87138975, a: 0}
 --- !u!1 &85820055
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,6 +957,7 @@ MonoBehaviour:
   safeFromHeatClip: {fileID: 8300000, guid: e31141cb4da2c8b4da4e7b02ce813270, type: 3}
   heatClip: {fileID: 8300000, guid: 45f128ddd396c6443820fc9e6428d599, type: 3}
   waterClip: {fileID: 8300000, guid: c0938759d166ecf47b5e49168c4978c5, type: 3}
+  grabCloudClip: {fileID: 8300000, guid: 7c218d04a24bc12439d3718ff853c37c, type: 3}
 --- !u!4 &474179999
 Transform:
   m_ObjectHideFlags: 0
@@ -1036,10 +1045,10 @@ MonoBehaviour:
   playButtonGO: {fileID: 2000582510}
   gameState: 0
   gameScenes:
+  - {fileID: 12044599}
   - {fileID: 1221442573}
   - {fileID: 979963887}
   - {fileID: 1845870069}
-  - {fileID: 12044599}
   - {fileID: 663849154}
   GreyFloorImage: {fileID: 1049257672}
   OsoImage: {fileID: 1477365288}

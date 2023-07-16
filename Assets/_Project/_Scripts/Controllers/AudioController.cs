@@ -14,6 +14,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioClip heatClip;
     
     [SerializeField] public AudioClip waterClip;
+    
+    [SerializeField] public AudioClip grabCloudClip;
 
     private void Awake()
     {
