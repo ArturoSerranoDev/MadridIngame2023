@@ -44,6 +44,10 @@ public class MainController : MonoBehaviour
     [SerializeField, Space] private GameState gameState = GameState.MainMenu;
     [SerializeField] private List<BaseScene> gameScenes;
     
+    
+    private Dictionary<BaseScene, bool > successfullGames = new Dictionary<BaseScene, bool>();
+    
+
     private int _currentSceneIndex = 0;
     private int _currentScore = 0;
     
@@ -222,13 +226,16 @@ public class MainController : MonoBehaviour
     private void OnSceneWon()
     {
         _currentScore++; // add 1 to score
-        
+        successfullGames[gameScenes[_currentSceneIndex]] = true;
+            
         AudioManager.Instance.PlaySound(AudioManager.Instance.WinRoundClip);
        OnSceneEnded();
     }
     
     private void OnSceneLost()
     {
+        successfullGames[gameScenes[_currentSceneIndex]] = false;
+
         OnSceneEnded();
     }
 
@@ -272,6 +279,8 @@ public class MainController : MonoBehaviour
             finalScoreText.text = "�Conseguiste superar " + _currentScore + "/" + gameScenes.Count + " pruebas!\r\n\r\nEsc - Jugar de nuevo";
             // show final score panel
             finalScorePanel.transform.DOScale(1f, 1f).SetEase(Ease.OutBounce);
+            
+           
             yield break;
         }
 
@@ -280,6 +289,21 @@ public class MainController : MonoBehaviour
         StartCoroutine(TransitionInMinigameCoroutine());
         
         Debug.Log("CurrentSceneIndex " + _currentSceneIndex);
+    }
+
+    public void OnPlayAgainPressed()
+    {
+        // Remove from the list the scenes that were not completed
+        for (int i = gameScenes.Count - 1; i >= 0; i--)
+        {
+            if (!successfullGames[gameScenes[i]])
+            {
+                gameScenes.RemoveAt(i);
+            }
+        }
+
+        _currentScore = 0;
+        _currentSceneIndex = 0;
     }
 
     void RestartGame()

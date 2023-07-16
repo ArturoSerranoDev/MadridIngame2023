@@ -17,6 +17,7 @@ public class Nube : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        AudioManager.Instance.PlaySound(AudioManager.Instance.grabCloudClip);
         avion.nubesRecogidas++;
         Destroy(gameObject);
         
