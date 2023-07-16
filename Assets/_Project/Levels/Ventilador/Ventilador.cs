@@ -5,11 +5,15 @@ using UnityEngine.tvOS;
 
 public class Ventilador : BaseScene
 {
-    VentiladorRefs refs;
-    Vector3 _velocity;
     public float speed = 10f;
     //public float Maxspeed = 10f;
     public bool start = false;
+
+    float _currentSpeed;
+
+    VentiladorRefs refs;
+
+
     public override void Init(InputController inputControllerRef)
     {
         refs = FindAnyObjectByType<VentiladorRefs>();
@@ -17,6 +21,7 @@ public class Ventilador : BaseScene
 
         base.Init(inputControllerRef);
     }
+
     public override void StartGame()
     {
         base.StartGame();
@@ -30,14 +35,25 @@ public class Ventilador : BaseScene
         base.OnKeyboardInputPressed(keyPressed);
         if (keyPressed == KeyCode.A)
         {
-            refs.player.velocity = new Vector3(-speed, 0, 0);
+            _currentSpeed = -speed;
         }
 
         else if (keyPressed == KeyCode.D)
         {
-            refs.player.velocity = new Vector3(speed, 0, 0);
+            _currentSpeed = speed;
         }
     }
+
+    void LateUpdate()
+    {
+        // rotate player
+        refs.player.transform.up = refs.ventiladorGiro.transform.position - refs.player.position;
+
+        // move player
+        refs.player.transform.RotateAround(refs.ventiladorGiro.transform.position, Vector3.forward, _currentSpeed * Time.deltaTime);
+        //refs.player.transform.position += refs.player.transform.right * _currentSpeed * Time.deltaTime;
+    }
+
     protected override void TimeoutEnded()
     {
         base.TimeoutEnded();

@@ -2028,7 +2028,7 @@ MonoBehaviour:
   sceneDuration: 5
   sceneTitle: "\xA1Que te de el aire! (A / D)"
   HasGameStarted: 0
-  speed: 10
+  speed: 70
   start: 0
 --- !u!1 &1310503549
 GameObject:
