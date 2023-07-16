@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.tvOS;
 
 public class Ventilador : BaseScene
 {
@@ -46,6 +45,8 @@ public class Ventilador : BaseScene
 
     void LateUpdate()
     {
+        if(!start)
+            return;
         // move player
         refs.player.transform.RotateAround(refs.ventiladorGiro.transform.position, Vector3.forward, _currentSpeed * Time.deltaTime);
     }
