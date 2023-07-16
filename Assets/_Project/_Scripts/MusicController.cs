@@ -1,13 +1,10 @@
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class MusicController : MonoBehaviour
 {
-    public static AudioManager Instance { get; private set; }
+    public static MusicController Instance { get; private set; }
 
-    [SerializeField] public AudioClip hitGarbageClip;
-    [SerializeField] public AudioClip jumpSoundClip;
-    [SerializeField] public AudioClip CollectGarbageClip;
-
+    [SerializeField] public AudioClip gameplayMusic;
     private void Awake()
     {
         if (Instance != null && Instance != this)

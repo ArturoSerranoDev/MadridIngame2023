@@ -76,6 +76,8 @@ public class MainController : MonoBehaviour
     {
         playButtonGO.SetActive(false);
         // INTRO DEL JUEGO
+        
+        MusicController.Instance.PlaySound(MusicController.Instance.gameplayMusic);
         StartCoroutine(IntroSequence());
     }
 

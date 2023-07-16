@@ -72,11 +72,13 @@ public class EndlessRunnerScene : BaseScene
         if (!isJumping)
         {
             _endlessRunnerRefs.playerRunner.playerAnimator.SetBool("Crash", true);
+            AudioManager.Instance.PlaySound(AudioManager.Instance.hitGarbageClip);
             Lose();
         }
         else
         {
             _endlessRunnerRefs.playerRunner.trashCleaned++;
+            AudioManager.Instance.PlaySound(AudioManager.Instance.CollectGarbageClip);
             _endlessRunnerRefs.playerRunner.playerScore.text = _endlessRunnerRefs.playerRunner.trashCleaned.ToString();
             Destroy(other.gameObject);
         }
@@ -87,6 +89,8 @@ public class EndlessRunnerScene : BaseScene
         _endlessRunnerRefs.playerRunner.playerAnimator.SetBool("Jump", true);
         isJumping = true;
         
+        AudioManager.Instance.PlaySound(AudioManager.Instance.jumpSoundClip);
+
         Invoke( "SetJumpToFalse", 1.28f);
     }
     
