@@ -52,6 +52,8 @@ public class EndlessRunnerScene : BaseScene
     // depending on Scene Logic
     protected override void TimeoutEnded()
     {
+        _endlessRunnerRefs.playerRunner.playerAnimator.SetBool("Run", false);
+        
         if (_endlessRunnerRefs.playerRunner.trashCleaned >= 3)
         {
             Win();
@@ -91,7 +93,7 @@ public class EndlessRunnerScene : BaseScene
         
         AudioManager.Instance.PlaySound(AudioManager.Instance.jumpSoundClip);
 
-        Invoke( "SetJumpToFalse", 1.28f);
+        Invoke( "SetJumpToFalse", 0.7f);
     }
     
     public void SetJumpToFalse()

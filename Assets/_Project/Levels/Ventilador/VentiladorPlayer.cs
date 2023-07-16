@@ -18,10 +18,12 @@ public class VentiladorPlayer : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         hotting = true;
+        AudioManager.Instance.PlaySound(AudioManager.Instance.heatClip);
     }
     private void OnTriggerExit(Collider other)
     {
         hotting = false;
+        AudioManager.Instance.PlaySound(AudioManager.Instance.safeFromHeatClip);
     }
 
     private void FixedUpdate()

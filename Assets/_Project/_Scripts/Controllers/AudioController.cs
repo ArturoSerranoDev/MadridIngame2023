@@ -7,6 +7,11 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioClip hitGarbageClip;
     [SerializeField] public AudioClip jumpSoundClip;
     [SerializeField] public AudioClip CollectGarbageClip;
+    
+    [SerializeField] public AudioClip WinRoundClip;
+    
+    [SerializeField] public AudioClip safeFromHeatClip;
+    [SerializeField] public AudioClip heatClip;
 
     private void Awake()
     {

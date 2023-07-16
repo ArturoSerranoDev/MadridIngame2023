@@ -223,6 +223,7 @@ public class MainController : MonoBehaviour
     {
         _currentScore++; // add 1 to score
         
+        AudioManager.Instance.PlaySound(AudioManager.Instance.WinRoundClip);
        OnSceneEnded();
     }
     
