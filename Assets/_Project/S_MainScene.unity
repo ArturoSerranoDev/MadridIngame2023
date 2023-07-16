@@ -1336,9 +1336,9 @@ MonoBehaviour:
   playButtonGO: {fileID: 2000582510}
   gameState: 0
   gameScenes:
-  - {fileID: 12044599}
   - {fileID: 1221442573}
   - {fileID: 979963887}
+  - {fileID: 12044599}
   - {fileID: 1845870069}
   - {fileID: 663849154}
   controlsPanel: {fileID: 309201183}
@@ -1940,7 +1940,7 @@ MonoBehaviour:
     m_ScenePath: Assets/_Project/Levels/CurvedEndlessRunner/S_CurvedEndlessRunner.unity
   sceneCamera: {fileID: 0}
   sceneDuration: 8
-  sceneTitle: "\xA1Salta al menos 3 bolsas de Basura! (A/D/Click)"
+  sceneTitle: "\xA1Salta las basuras para recogerlas!"
   HasGameStarted: 0
   trashCleaned: 0
 --- !u!1 &1022608363
