@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class Avion : BaseScene
 {
-    AvionReffs _references;
-    Vector3 _velocity;
-    public float acceleration = 10f;
+    public float accelerationTime = .2f;
     public float Maxspeed = 10f;
-    bool gravity = true;
+    public float cloudSpeed = 5f;
     public GameObject nubesPrefab01;
     public GameObject nubesPrefab02;
     public GameObject nubesPrefab03;
-    public float spawnRateMin = .5f, spawnRateMax = 1.5f, spawnTimer = .5f;
-    int nube;
+    public float spawnCooldown = .5f, spawnTimer = .5f;
     public float rebote = 1f;
-    public int nubesRecogidas = 0, nubesVictoria;
+    public int nubesVictoria = 3;
+
+    [HideInInspector] public int nubesRecogidas = 0;
+    bool _gravity = true;
+    Vector3 _velocity;
+    int _nube;
+
+    AvionReffs _references;
 
     public override void Init(InputController inputControllerRef)
     {
@@ -40,8 +44,8 @@ public class Avion : BaseScene
     {
         base.OnMouseLeftClick();
 
-        gravity = !gravity;
-        print(gravity);
+        _gravity = !_gravity;
+        print(_gravity);
     }
     private void LateUpdate()
     {
@@ -52,21 +56,25 @@ public class Avion : BaseScene
         spawnTimer -= Time.deltaTime;
         if (spawnTimer <= 0)
         {
-            nube = Random.Range(1, 4);
-            if (nube == 1)
+            _nube = Random.Range(1, 4);
+            Nube instantiatedCloud = null;
+            if (_nube == 1)
             {
-                Instantiate(nubesPrefab01, new Vector3 (10, Random.Range(-2,3),40), Quaternion.identity);
+                instantiatedCloud = Instantiate(nubesPrefab01, new Vector3 (10, Random.Range(-2,3),40), Quaternion.identity).GetComponent<Nube>();
             }
-            if (nube == 2)
+            if (_nube == 2)
             {
-                Instantiate(nubesPrefab02, new Vector3(10, Random.Range(-2, 3), 40), Quaternion.identity);
+                instantiatedCloud = Instantiate(nubesPrefab02, new Vector3(10, Random.Range(-2, 3), 40), Quaternion.identity).GetComponent<Nube>();
             }
-            if (nube == 3)
+            if (_nube == 3)
             {
-                Instantiate(nubesPrefab03, new Vector3(10, Random.Range(-2, 3), 40), Quaternion.identity);
+                instantiatedCloud = Instantiate(nubesPrefab03, new Vector3(10, Random.Range(-2, 3), 40), Quaternion.identity).GetComponent<Nube>();
             }
 
-            spawnTimer = Random.Range(spawnRateMin, spawnRateMax);
+            if(instantiatedCloud != null)
+                instantiatedCloud.cloudSpeed = cloudSpeed;
+
+            spawnTimer = spawnCooldown;
         }
 
        
@@ -83,16 +91,22 @@ public class Avion : BaseScene
         }
         else
         {
-            if (gravity)
+            if (_gravity)
             {
                 if (_references.avion.velocity.y >= -Maxspeed)
-                    _references.avion.velocity -= new Vector3(0, acceleration * Time.deltaTime, 0);
+                {
+                    //_references.avion.velocity -= new Vector3(0, acceleration * Time.deltaTime, 0);
+                    _references.avion.velocity = Vector3.MoveTowards(_references.avion.velocity, Vector3.down * -Maxspeed, Time.deltaTime / accelerationTime);
+                }
             }
 
             else
             {
                 if (_references.avion.velocity.y <= Maxspeed)
-                    _references.avion.velocity += new Vector3(0, acceleration * Time.deltaTime, 0);
+                {
+                    //_references.avion.velocity += new Vector3(0, acceleration * Time.deltaTime, 0);
+                    _references.avion.velocity = Vector3.MoveTowards(_references.avion.velocity, Vector3.down * Maxspeed, Time.deltaTime / accelerationTime);
+                }
                 if (transform.position.y <= -1)
                 {
                     _references.avion.velocity = Vector3.zero;
