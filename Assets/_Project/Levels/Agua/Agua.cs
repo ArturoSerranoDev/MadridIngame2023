@@ -30,19 +30,16 @@ public class Agua : BaseScene
         Destroy(aguaReffs.delete);
     }
 
-    protected override void OnKeyboardInputPressed(KeyCode keyPressed)
+    protected override void OnMouseLeftClick()
     {
-        base.OnKeyboardInputPressed(keyPressed);
-
-        if (keyPressed == KeyCode.A)
+        base.OnMouseLeftClick();
+        if (start)
         {
-            if (start)
-            {
-                aguaReffs.player.AddForce(Vector3.up * fuerzaImpulso / 1.5f, ForceMode.Force);
-                aguaReffs.player.AddForce(Vector3.right * fuerzaImpulso , ForceMode.Force);
-            }
+            aguaReffs.player.AddForce(Vector3.up * fuerzaImpulso / 1.5f, ForceMode.Force);
+            aguaReffs.player.AddForce(Vector3.right * fuerzaImpulso , ForceMode.Force);
         }
     }
+ 
     private void FixedUpdate()
     {
         if (start)

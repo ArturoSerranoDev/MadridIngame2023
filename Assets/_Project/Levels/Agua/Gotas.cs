@@ -8,6 +8,7 @@ public class Gotas : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        AudioManager.Instance.PlaySound(AudioManager.Instance.waterClip);
         agua.gotasBebidas++;
         Destroy(gameObject);
     }
