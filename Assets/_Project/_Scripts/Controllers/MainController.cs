@@ -7,6 +7,8 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Analytics;
+using Unity.VisualScripting;
 
 public enum GameState
 {
@@ -29,6 +31,8 @@ public class MainController : MonoBehaviour
     [SerializeField, Space] private GameObject permanentCanvas;
     [SerializeField] private GameObject mainMenuCanvas;
     [SerializeField] private Image timerFillBar;
+    [SerializeField] private GameObject finalScorePanel;
+    [SerializeField] private TextMeshProUGUI finalScoreText;
 
     [SerializeField, Space] private GameObject puertaAlcalaPivot;
     [SerializeField] private GameObject puertaAlcalaDoor;
@@ -44,8 +48,12 @@ public class MainController : MonoBehaviour
     private int _currentScore = 0;
     
     private bool _hasGameStarted = false;
-    
-    
+
+    void OnEnable()
+    {
+        inputController.EscPressAction += RestartGame;
+    }
+
     private void Start()
     {
         scoreText.gameObject.SetActive(false);
@@ -149,7 +157,7 @@ public class MainController : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         scoreText.DOFade(0f, 0.5f).From(1f);
-        puertaAlcalaPivot.transform.DOScale(10, 1f).From(1f);
+        puertaAlcalaPivot.transform.DOScale(50, 1f).From(1f);
         
         gameScenes[_currentSceneIndex].sceneCamera.gameObject.SetActive(true);
         gameScenes[_currentSceneIndex].sceneCamera.GetComponent<FadeCamera>().FadeOut(1f);
@@ -176,7 +184,7 @@ public class MainController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         
         puertaAlcalaPivot.SetActive(true);
-        puertaAlcalaPivot.transform.DOScale(1f, 1f).From(10f);
+        puertaAlcalaPivot.transform.DOScale(1f, 1f).From(50f);
         yield return new WaitForSeconds(1f);
 
         // Empezar a echar para atras camara
@@ -245,22 +253,35 @@ public class MainController : MonoBehaviour
         var loadSceneOperation = SceneManager.UnloadSceneAsync(gameScenes[_currentSceneIndex].UnitySceneReference.SceneName);
         loadSceneOperation.completed += (x) => 
         {
-            Debug.Log("Unloaded Level Asynchronously with name " + gameScenes[_currentSceneIndex].UnitySceneReference.SceneName);
+            //Debug.Log("Unloaded Level Asynchronously with name " + gameScenes[_currentSceneIndex].UnitySceneReference.SceneName);
         };
         
         _currentSceneIndex++;
         
         // Load the next scene
-        if (_currentSceneIndex >= gameScenes.Count)
+        if (_currentSceneIndex > gameScenes.Count)
         {
-            Debug.Log("Congratulations, you've finished all the levels!");
+            // GAME OVER
+
+            // update final score text
+            finalScoreText.text = "�Conseguiste superar " + _currentScore + "/5 pruebas!\r\n\r\nEsc - Jugar de nuevo";
+            // show final score panel
+            finalScorePanel.transform.DOScale(1f, 1f).SetEase(Ease.OutBounce);
             yield break;
         }
-        
+
         InitMinigame(_currentSceneIndex);
         
         StartCoroutine(TransitionInMinigameCoroutine());
         
         Debug.Log("CurrentSceneIndex " + _currentSceneIndex);
+    }
+
+    void RestartGame()
+    {
+        if (!_hasGameStarted)
+            Application.Quit();
+
+        SceneManager.LoadScene(0);
     }
 }
