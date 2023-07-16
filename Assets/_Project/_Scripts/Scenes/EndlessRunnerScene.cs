@@ -22,6 +22,8 @@ public class EndlessRunnerScene : BaseScene
     public override void StartGame()
     {
         base.StartGame();
+        
+        _endlessRunnerRefs.playerRunner.playerAnimator.SetBool("Run", true);
 
         _endlessRunnerRefs.torresKio.transform.DOMoveY(_endlessRunnerRefs.torresKio.transform.position.y + 18, 6);
 
@@ -67,8 +69,11 @@ public class EndlessRunnerScene : BaseScene
 
     public void OnPlayerTriggerEnter(Collider other)
     {
-        if(!isJumping)
+        if (!isJumping)
+        {
+            _endlessRunnerRefs.playerRunner.playerAnimator.SetBool("Crash", true);
             Lose();
+        }
         else
         {
             _endlessRunnerRefs.playerRunner.trashCleaned++;

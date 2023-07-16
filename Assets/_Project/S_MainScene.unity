@@ -1027,7 +1027,7 @@ MonoBehaviour:
   playButtonGO: {fileID: 2000582510}
   gameState: 0
   gameScenes:
-  - {fileID: 1221442573}
+  - {fileID: 979963887}
   GreyFloorImage: {fileID: 1049257672}
   OsoImage: {fileID: 1477365288}
   SchweppsImage: {fileID: 1339780680}
@@ -3025,7 +3025,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &8007339533605072768
 MonoBehaviour:
   m_ObjectHideFlags: 0
