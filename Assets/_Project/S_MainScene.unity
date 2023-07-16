@@ -1036,6 +1036,7 @@ MonoBehaviour:
   playButtonGO: {fileID: 2000582510}
   gameState: 0
   gameScenes:
+  - {fileID: 1221442573}
   - {fileID: 663849154}
   GreyFloorImage: {fileID: 1049257672}
   OsoImage: {fileID: 1477365288}

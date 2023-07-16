@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VentiladorPlayer : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class VentiladorPlayer : MonoBehaviour
     public bool lose = false;
     public Sprite sprite01, sprite02, sprite03, sprite04;
     SpriteRenderer spriteRenderer;
+    public Image heatImage;
 
     private void Awake()
     {
@@ -30,6 +32,7 @@ public class VentiladorPlayer : MonoBehaviour
     {
         if (!start)
             return;
+
 
         if (hot == 0)
         {
@@ -52,6 +55,7 @@ public class VentiladorPlayer : MonoBehaviour
         if (hotting)
         {
             hot+=Time.deltaTime;
+
         }
         else
         {
@@ -62,5 +66,10 @@ public class VentiladorPlayer : MonoBehaviour
                 hot = 0;
             }
         }
+        
+        heatImage.fillAmount = hot / maxHot;
+        
+        // Lerp Image color from blue to red depending on hotness
+        heatImage.color = Color.Lerp(Color.blue, Color.red, hot / maxHot);
     }
 }
