@@ -46,12 +46,8 @@ public class Ventilador : BaseScene
 
     void LateUpdate()
     {
-        // rotate player
-        refs.player.transform.up = refs.ventiladorGiro.transform.position - refs.player.position;
-
         // move player
         refs.player.transform.RotateAround(refs.ventiladorGiro.transform.position, Vector3.forward, _currentSpeed * Time.deltaTime);
-        //refs.player.transform.position += refs.player.transform.right * _currentSpeed * Time.deltaTime;
     }
 
     protected override void TimeoutEnded()
