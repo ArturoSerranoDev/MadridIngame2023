@@ -75,12 +75,12 @@ public class Avion : BaseScene
         }
 
         
-        if (_references.avionTransform.position.y >= 5)
+        if (_references.avionTransform.position.y >= 5f)
         {
             _references.avion.velocity = new Vector3(0,-rebote,0);
 
         }
-        else if (_references.avionTransform.position.y <= 0)
+        else if (_references.avionTransform.position.y <= -1.7f)
         {
             _references.avion.velocity = new Vector3(0, rebote, 0);
 
