@@ -5,7 +5,8 @@ using UnityEngine;
 public class Agua : BaseScene
 {
     AguaReffs aguaReffs;
-    public float fuerzaImpulso = 10, timerImpulso = .5f, minImpulso=.2f, maxImpulso=1f;
+    public float fuerzaImpulso = 10;
+    public float timerImpulso = .5f;
     public bool start = false;
     public int gotasBebidas = 0, gotasVictoria;
 
@@ -54,8 +55,7 @@ public class Agua : BaseScene
             {
                 aguaReffs.player.AddForce(Vector3.up * -fuerzaImpulso / 1.5f, ForceMode.Force);
                 aguaReffs.player.AddForce(Vector3.right * -fuerzaImpulso, ForceMode.Force);
-                timerImpulso = .3f;/* Random.Range(minImpulso,maxImpulso);*/
-
+                timerImpulso = .3f;
             }
         }
     }
