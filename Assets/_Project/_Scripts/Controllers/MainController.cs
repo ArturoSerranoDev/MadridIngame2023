@@ -43,6 +43,8 @@ public class MainController : MonoBehaviour
 
     [SerializeField, Space] private GameState gameState = GameState.MainMenu;
     [SerializeField] private List<BaseScene> gameScenes;
+
+    [SerializeField] private GameObject controlsPanel;
     
     
     private Dictionary<BaseScene, bool > successfullGames = new Dictionary<BaseScene, bool>();
@@ -78,6 +80,7 @@ public class MainController : MonoBehaviour
 
     public void OnPlayButtonPressed()
     {
+        controlsPanel.SetActive(false);
         playButtonGO.SetActive(false);
         // INTRO DEL JUEGO
         
