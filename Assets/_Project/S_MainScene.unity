@@ -173,9 +173,9 @@ MonoBehaviour:
     m_ScenePath: Assets/_Project/Levels/Traffic/S_Traffic.unity
   sceneCamera: {fileID: 0}
   sceneDuration: 10
-  sceneTitle: "\xA1Clica en 5 coches!"
+  sceneTitle: "\xA1No dejes que se acumule el atasco!"
   HasGameStarted: 0
-  carSpawnCooldown: 0
+  carSpawnCooldown: 0.25
   carSpeed: 3
 --- !u!1 &85820055
 GameObject:
@@ -1027,7 +1027,7 @@ MonoBehaviour:
   playButtonGO: {fileID: 2000582510}
   gameState: 0
   gameScenes:
-  - {fileID: 979963887}
+  - {fileID: 12044599}
   GreyFloorImage: {fileID: 1049257672}
   OsoImage: {fileID: 1477365288}
   SchweppsImage: {fileID: 1339780680}

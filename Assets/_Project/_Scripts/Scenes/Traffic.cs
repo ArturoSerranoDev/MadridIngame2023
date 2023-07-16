@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Traffic : BaseScene
 {
-    [SerializeField] float carSpawnCooldown;
+    [SerializeField] float carSpawnCooldown = .25f;
     [SerializeField] float carSpeed = 3f;
 
     List<Car> _lCars = new();
