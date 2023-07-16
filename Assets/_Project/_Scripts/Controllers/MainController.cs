@@ -157,7 +157,7 @@ public class MainController : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         scoreText.DOFade(0f, 0.5f).From(1f);
-        puertaAlcalaPivot.transform.DOScale(10, 1f).From(1f);
+        puertaAlcalaPivot.transform.DOScale(50, 1f).From(1f);
         
         gameScenes[_currentSceneIndex].sceneCamera.gameObject.SetActive(true);
         gameScenes[_currentSceneIndex].sceneCamera.GetComponent<FadeCamera>().FadeOut(1f);
@@ -184,7 +184,7 @@ public class MainController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         
         puertaAlcalaPivot.SetActive(true);
-        puertaAlcalaPivot.transform.DOScale(1f, 1f).From(10f);
+        puertaAlcalaPivot.transform.DOScale(1f, 1f).From(50f);
         yield return new WaitForSeconds(1f);
 
         // Empezar a echar para atras camara
@@ -264,7 +264,7 @@ public class MainController : MonoBehaviour
             // GAME OVER
 
             // update final score text
-            finalScoreText.text = "¡Conseguiste superar " + _currentScore + "/5 pruebas!\r\n\r\nEsc - Jugar de nuevo";
+            finalScoreText.text = "ï¿½Conseguiste superar " + _currentScore + "/5 pruebas!\r\n\r\nEsc - Jugar de nuevo";
             // show final score panel
             finalScorePanel.transform.DOScale(1f, 1f).SetEase(Ease.OutBounce);
             yield break;
