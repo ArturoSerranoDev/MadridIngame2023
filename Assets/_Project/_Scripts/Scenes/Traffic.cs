@@ -6,6 +6,7 @@ public class Traffic : BaseScene
 {
     [SerializeField] float carSpawnCooldown = .25f;
     [SerializeField] float carSpeed = 3f;
+    [SerializeField] Color[] carColorPool;
 
     List<Car> _lCars = new();
     List<Car> _rCars = new();
@@ -41,6 +42,7 @@ public class Traffic : BaseScene
             Transform spawnPoint = spawnLeft ? _references.lCarSpawnPoint : _references.rCarSpawnPoint;
 
             Car instantiatedCar = Instantiate(_references.carPrefab, spawnPoint.position, Quaternion.identity, parent: transform).GetComponent<Car>();
+            instantiatedCar.GetComponentInChildren<Renderer>().materials[0].color = carColorPool[Random.Range(0, carColorPool.Length)];
             instantiatedCar.speed = carSpeed;
             if (spawnLeft)
             {
