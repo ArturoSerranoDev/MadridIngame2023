@@ -49,5 +49,7 @@ public class Ventilador : BaseScene
         {
             Win();
         }
+        
+        refs.player.velocity = Vector3.zero;
     }
 }
